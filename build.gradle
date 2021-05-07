@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.1.1"
+}
+
+group 'vn.zalopay.goc'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.mockito:mockito-core:3.8.0'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination layout.buildDirectory.dir('jacocoHtml').get().asFile
+    }
+}
+
+sonarqube {
+    properties {
+        property 'sonar.host.url', 'http://localhost:9000'
+        property 'sonar.login', '6317d96e18fcc0b6f2a488f522bec5e77572211a'
+        property 'sonar.projectName', 'goc-unit-test-demo'
+        property 'sonar.projectKey', 'vn.zalopay.goc:sonar-jacoco'
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+}

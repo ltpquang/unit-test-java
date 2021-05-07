@@ -1,0 +1,24 @@
+@startuml
+
+start
+if (a == 0) then (false)
+  :return False;
+  stop
+else (true)
+  if (b == 0) then (false)
+    :return False;
+    stop
+  else (true)
+    if (c == 0) then (false)
+      :return False;
+      stop
+    else (true)
+      :return True;
+      stop
+    endif
+  endif
+endif
+
+
+@enduml
+
